@@ -32,10 +32,19 @@ int to_int(string str) {
 }
 
 string to_binary_string(int num, int bit_cnt) {
-    string res(bit_cnt, '0');
-    for (int i = 0; i < bit_cnt; i++)
-        res[i] = (num & (1<<i)) ? '1' : '0';
+    //string res(bit_cnt, '0');
+    //for (int i = 0; i < bit_cnt; i++)
+    //    res[i] = (num & (1<<i)) ? '1' : '0';
 
+    string res;
+    for(int i = bit_cnt-1; i >= 0; i--)
+    {
+        int k = num >> i;
+        if(k & 1)
+            res.append("1");
+        else
+            res.append("0");
+    }
     return res;
 }
 
@@ -190,11 +199,11 @@ int main() {
         } else if (opcode == "sw" or opcode == "lw") {
             auto parsed_res = parse_memreadwrite(str);
             rt = parsed_res[1];
-            rd = parsed_res[3];
+            rs = parsed_res[3];
             immediate = to_int(parsed_res[2]);
 
-            cerr << opcode << " " << rt << " " << rs << immediate << endl;
-            output_file << inst_to_code[opcode] << register_addresses[rt] << register_addresses[rs]
+            cerr << opcode << " " << rs << " " << rt << immediate << endl;
+            output_file << inst_to_code[opcode] << register_addresses[rs] << register_addresses[rt]
                         << to_binary_string(immediate, 8) << endl;
         } else {
             cerr << opcode << endl;
