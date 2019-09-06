@@ -180,8 +180,7 @@ int main() {
             rt.pop_back();
 
             cerr << opcode << " " << rd << " " << shift_amount << " " << rt << endl;
-            output_file << inst_to_code[opcode] << register_addresses[rd] << to_binary_string(shift_amount, 4)
-                        << register_addresses[rt] << "0000\n";
+            output_file << inst_to_code[opcode] << "0000" << register_addresses[rt] << register_addresses[rd] << to_binary_string(shift_amount, 4) << endl;
 
         } else if (opcode == "beq" or opcode == "bneq") {
             ss >> rs >> rt >> immediate;
@@ -195,7 +194,7 @@ int main() {
             ss >> immediate;
 
             cerr << opcode << " " << immediate << endl;
-            output_file << inst_to_code[opcode] << to_binary_string(immediate, 8) << endl;
+            output_file << inst_to_code[opcode] << to_binary_string(immediate, 8) << "00000000" << endl;
         } else if (opcode == "sw" or opcode == "lw") {
             auto parsed_res = parse_memreadwrite(str);
             rt = parsed_res[1];
