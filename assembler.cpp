@@ -32,10 +32,6 @@ int to_int(string str) {
 }
 
 string to_binary_string(int num, int bit_cnt) {
-    //string res(bit_cnt, '0');
-    //for (int i = 0; i < bit_cnt; i++)
-    //    res[i] = (num & (1<<i)) ? '1' : '0';
-
     string res;
     for(int i = bit_cnt-1; i >= 0; i--)
     {
@@ -145,6 +141,9 @@ int main() {
     inst_to_code["lw"] = "1110";
     inst_to_code["or"] = "1111";
 
+
+    output_file << inst_to_code["addi"] << register_addresses["$sp"] << register_addresses["$sp"] << "11111111" << endl;
+
     string str;
     while (getline(input_file, str)) {
 
@@ -166,9 +165,9 @@ int main() {
 
         } else if ( opcode == "addi" or opcode == "subi" or opcode == "andi" or opcode == "ori") {
 
-            ss >> rs >> rt >> immediate;
-            rs.pop_back();
+            ss >> rt >> rs >> immediate;
             rt.pop_back();
+            rs.pop_back();
 
             cerr << opcode << " " << rs << " " << rt << " " << immediate << endl;
             output_file << inst_to_code[opcode] << register_addresses[rs] << register_addresses[rt]

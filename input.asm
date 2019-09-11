@@ -1,22 +1,32 @@
-addi $t1, $t1, 5
-sll $zero, $t1, 2
-srl $zero, $t1, 2
-addi $t0, $t0, 3
-subi $sp, $sp, 25
-sw $t0, 0($sp)
-lw $t1, 0($sp)
-subi $t1, $t1, 1
-sw $t1, 50($zero)
-lw $t2, 50($zero)
-add $t3, $t0, $t2
-subi $sp, $sp, 1
-sw $t1, 4($sp)
-nor $t1, $t3, $t3
-ori $t4, $t4, 5
-add $t1, $t4, $t3
-sub $t4, $t1, $t3
-beq $t1, $t4, 2
-bneq $t1, $t4, 2
-lw $t3, 15($zero)
-add $t1, $t1, $t2
-j 2
+addi $t0, $zero, 5
+add $t1, $zero, $t0
+bneq $t0, $t1, 1
+j 5
+j 0
+sll $t0, $t0, 2 
+srl $t0, $t0, 2
+beq $t0, $t1, 1
+j 0
+or $t2, $t0, $t1
+ori $t2, $t2, 0
+andi $t2, $t2, -1
+and $t2, $t0, $t1
+subi $t2, $t2, 5
+sub $t2, $t1, $t2
+bneq $t2, $zero, 1
+j 0 
+sw $t1, 100($t0)
+lw $t2, 100($t0)
+beq $t2, $t1, 1
+j 0
+nor $t0, $t0, $t0
+and $t2, $t1, $t0
+addi $t4, $zero, 120
+addi $t3, $zero, -120
+sw $t4, 0($sp)
+addi $sp, $sp, -1
+sw $t3, 0($sp)
+addi $sp, $sp, -1
+lw $t1, 1($sp)
+lw $t2, 2($sp)
+beq $t1, $t1, -32
